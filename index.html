@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Для Леры 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(to top left, #ffe4ec, #fddde6);
+      color: #4d2c3d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .button {
+      background: #fff0f5;
+      border: none;
+      border-radius: 15px;
+      padding: 15px 25px;
+      margin: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .button:hover {
+      background: #ffdaec;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 90%;
+      text-align: center;
+    }
+    .close {
+      margin-top: 15px;
+      background-color: #ffccd5;
+    }
+    .gallery img {
+      max-width: 90vw;
+      max-height: 300px;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto;
+    }
+    canvas {
+      background: #ffe6f0;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+    .gif-box img {
+      width: 250px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+    .gallery-nav {
+      margin-top: 10px;
+    }
+    .video-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .video-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .video-tab {
+      padding: 8px 15px;
+      margin: 0 5px;
+      background: #ffe6f0;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .video-tab.active {
+      background: #ffccd5;
+    }
+    @media (min-width: 700px) {
+      .video-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+      .video-container video {
+        width: 350px;
+        height: auto;
+      }
+      .video-text {
+        max-width: 300px;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-lovely.mp3" type="audio/mp3">
+  </audio>
+
+  <h1>Привет, солнышко! 🌷<br>Это сайт для тебя 💗</h1>
+  <button class="button" onclick="showModal('letter')">💌 Письмо</button>
+  <button class="button" onclick="showModal('hug')">🧸 Обними меня</button>
+  <button class="button" onclick="showModal('compliment')">💖 Комплимент</button>
+  <button class="button" onclick="showModal('secret')">🌟 Секрет</button>
+  <button class="button" onclick="showModal('gallery')">📸 Галерея</button>
+  <button class="button" onclick="showModal('video')">🎥 Видео</button>
+
+  <canvas id="game" width="300" height="200"></canvas>
+
+  <div id="letter" class="modal">
+    <div class="modal-content">
+      <h2>любимая, от всего сердца 💕</h2>
+      <p>Этот сайт — только для тебя. Просто так, потому что ты маленькое чудо. Ты делаешь мир лучше, меня счастливее и я хочу напомнить тебе об этом 💗</p>
+      <button class="button close" onclick="closeModal('letter')">Закрыть</button>
+    </div>
+  </div>
+
+  <div id="hug" class="modal">
+    <div class="modal-content gif-box">
+      <h2>Обнимашки! 🤗</h2>
+      <img src="gifka.gif" alt="Обнимающий мишка">
+      <p>Вот виртуальные объятия! Представь, что я сейчас рядом и крепко тебя обнимаю 🫂</p>
+      <button class="button close" onclick="closeModal('hug')">Закрыть</button>
+    </div>
+  </div>
+
+  <div id="compliment" class="modal">
+    <div class="modal-content">
+      <h2>Ты невероятная 🌸</h2>
+      <p>Ты — прекрасная, добрая, милая и просто безумно пиздатая. Ты заслуживаешь всё самое лучшее 💖</p>
+      <button class="button close" onclick="closeModal('compliment')">Закрыть</button>
+    </div>
+  </div>
+
+  <div id="secret" class="modal">
+    <div class="modal-content">
+      <h2>Маленький секрет 🤫</h2>
+      <p>Ты знаешь, Лера... У МЕНЯ НЕТ НИКАКИХ АЛЬТУШЕК И ЛЮБОВНИЦ, ЭТО ТАКОЙ МАЛЕНЬКИЙ СЕКРЕТИК ТЕБЕ!!! Просто помни об этом всегда 💌</p>
+      <button class="button close" onclick="closeModal('secret')">Закрыть</button>
+    </div>
+  </div>
+
+  <div id="gallery" class="modal">
+    <div class="modal-content">
+      <h2>Это мы 💞</h2>
+      <div class="gallery">
+        <img id="gallery-image" src="1.jpg" alt="Фото">
+        <div class="gallery-nav">
+          <button class="button" onclick="prevPhoto()">← Назад</button>
+          <button class="button" onclick="nextPhoto()">Вперёд →</button>
+        </div>
+      </div>
+      <button class="button close" onclick="closeModal('gallery')">Закрыть</button>
+    </div>
+  </div>
+
+  <div id="video" class="modal">
+    <div class="modal-content">
+      <h2>Видео для тебя 🎥</h2>
+      <div class="video-tabs">
+        <div class="video-tab active" onclick="changeVideo(0)">Видео 1</div>
+        <div class="video-tab" onclick="changeVideo(1)">Видео 2</div>
+        <div class="video-tab" onclick="changeVideo(2)">Видео 3</div>
+      </div>
+      <div class="video-container">
+        <video id="video-player" controls>
+          <source src="видео.mp4" type="video/mp4">
+          Твой браузер не поддерживает видео :(
+        </video>
+        <div id="video-text" class="video-text">
+          <p>Это видео — маленькое напоминание о том, как я тебя люблю и последнее напоминание о длинных волосах) а еще я кривой и хуево записал, но думаб ничего страшного) 💞</p>
+        </div>
+      </div>
+      <button class="button close" onclick="closeModal('video')">Закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    function showModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    const galleryImages = [
+      '1.jpg','2.jpg','2.png','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg','10.jpg','11.jpg','12.png','13.jpg','14.png','15.jpg'
+    ];
+    let currentImageIndex = 0;
+
+    function showGalleryImage() {
+      const image = document.getElementById('gallery-image');
+      image.src = galleryImages[currentImageIndex];
+    }
+
+    function prevPhoto() {
+      currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+      showGalleryImage();
+    }
+
+    function nextPhoto() {
+      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      showGalleryImage();
+    }
+
+    // Видео табы
+    const videos = [
+      { src: 'видео.mp4', text: 'Это видео — маленькое напоминание о том, как я тебя люблю и последнее напоминание о длинных волосах) а еще я кривой и хуево записал, но думаб ничего страшного) 💞' },
+      { src: 'видео2.mp4', text: '' },
+      { src: 'видео3.mp4', text: '' }
+    ];
+
+    function changeVideo(index) {
+      const videoPlayer = document.getElementById('video-player');
+      const videoText = document.getElementById('video-text');
+      const tabs = document.querySelectorAll('.video-tab');
+      
+      // Обновляем видео и текст
+      videoPlayer.src = videos[index].src;
+      videoText.innerHTML = videos[index].text ? `<p>${videos[index].text}</p>` : '';
+      
+      // Обновляем активную вкладку
+      tabs.forEach((tab, i) => {
+        if (i === index) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      
+      // Перезагружаем видео
+      videoPlayer.load();
+    }
+
+    // Мини-игра: поймай сердечко
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    let x = Math.random() * 260;
+    let y = 0;
+    let score = 0;
+    const messages = ['Ты супер 💫', 'Ты чудо 🌷', 'Обожаю тебя 💖', 'Ты — солнце ☀️', 'Самая милая 💕'];
+    let currentMessage = '';
+    let messageTimer = 0;
+
+    function drawHeartShape(x, y, size) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.bezierCurveTo(x, y - size / 2, x - size, y - size / 2, x - size, y);
+      ctx.bezierCurveTo(x - size, y + size, x, y + size * 1.5, x, y + size * 2);
+      ctx.bezierCurveTo(x, y + size * 1.5, x + size, y + size, x + size, y);
+      ctx.bezierCurveTo(x + size, y - size / 2, x, y - size / 2, x, y);
+      ctx.fillStyle = 'pink';
+      ctx.fill();
+    }
+
+    function drawHeart() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawHeartShape(x, y, 10);
+      ctx.font = '16px Pacifico';
+      ctx.fillStyle = '#4d2c3d';
+      ctx.fillText('Сердечки: ' + score, 10, 20);
+
+      if (currentMessage && messageTimer > 0) {
+        ctx.font = '14px Pacifico';
+        ctx.fillText(currentMessage, 10, 50);
+        messageTimer--;
+      }
+    }
+
+    canvas.addEventListener('click', function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+      if (clickX >= x - 15 && clickX <= x + 15 && clickY >= y - 15 && clickY <= y + 15) {
+        score++;
+        x = Math.random() * 260;
+        y = 0;
+        currentMessage = messages[Math.floor(Math.random() * messages.length)];
+        messageTimer = 80;
+      }
+    });
+
+    function update() {
+      y += 1.2;
+      if (y > 200) {
+        x = Math.random() * 260;
+        y = 0;
+      }
+      drawHeart();
+      requestAnimationFrame(update);
+    }
+    update();
+  </script>
+</body>
+</html>
